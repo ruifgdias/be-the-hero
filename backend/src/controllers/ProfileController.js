@@ -18,6 +18,13 @@ module.exports = {
             'ong.uf']
         );
 
+        const [count] = await connection('incident')
+        .where('ong_id', ong_id)
+        .count();
+        resp.header('X-Total-Count', count['count(*)']);
+        resp.header('X-Page-Number', page);
+        resp.header('X-Page-Size', pagesize);
+
         return resp.json(incs);
     }
 
